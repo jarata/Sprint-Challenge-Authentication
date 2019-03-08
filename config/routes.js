@@ -2,9 +2,8 @@ const axios = require('axios');
 
 const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig');
-const jwt = require('jsonwebtoken');
 
-const { authenticate } = require('../auth/authenticate');
+const { authenticate, generateToken } = require('../auth/authenticate');
 
 module.exports = server => {
   server.post('/api/register', register);
@@ -28,18 +27,6 @@ function register(req, res) {
           error: "Error 500 /register", e
         })
       })
-}
-
-function generateToken(user) {
-    const payload = {
-        subject: user.id,
-        username: user.username
-    };
-    const options = {
-        expiresIn: '1d'
-    };
-    const secret = process.env.JWT_SECRET;
-    return jwt.sign(payload, secret, options)
 }
 
 function login(req, res) {
