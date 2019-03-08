@@ -31,6 +31,14 @@ function register(req, res) {
 
 function login(req, res) {
   // implement user login
+    let {username, password} = req.body;
+    db('users').where({username}).first()
+    .then(u => {
+        if (u && bcrypt.compareSync(password, u.password)) {
+
+        }
+    })
+
 }
 
 function getJokes(req, res) {
